@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0xjdd8k0xrc1"]
+
+[ext_resource type="PackedScene" uid="uid://b5wivcrlrhq6p" path="res://Assets/Animation/Idle.fbx" id="1_xbyl6"]
+[ext_resource type="PackedScene" uid="uid://cjca06y3chyrs" path="res://Assets/Animation/Walking.fbx" id="2_xw3ui"]
+[ext_resource type="PackedScene" uid="uid://dlvydn8na3gv1" path="res://Assets/Animation/Slow Run.fbx" id="3_xssfn"]
+[ext_resource type="PackedScene" uid="uid://6vmyt42smevj" path="res://Assets/Animation/Running.fbx" id="4_3iawm"]
+[ext_resource type="PackedScene" uid="uid://bud63b8e87keq" path="res://Assets/Animation/Fast Run.fbx" id="5_cnm4u"]
+
+[node name="AnimationExtractor" type="Node3D"]
+
+[node name="Idle" parent="." instance=ExtResource("1_xbyl6")]
+
+[node name="Walking" parent="." instance=ExtResource("2_xw3ui")]
+
+[node name="Slow Run" parent="." instance=ExtResource("3_xssfn")]
+
+[node name="Running" parent="." instance=ExtResource("4_3iawm")]
+
+[node name="Fast Run" parent="." instance=ExtResource("5_cnm4u")]

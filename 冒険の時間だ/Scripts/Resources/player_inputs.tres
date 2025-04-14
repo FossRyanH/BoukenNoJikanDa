@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="PlayerInputRes" load_steps=2 format=3 uid="uid://dib3rutf3cdbi"]
+
+[ext_resource type="Script" uid="uid://df1wdsoha4to" path="res://Scripts/Resources/PlayerInputRes.cs" id="1_4pgw6"]
+
+[resource]
+script = ExtResource("1_4pgw6")
+metadata/_custom_type_script = "uid://df1wdsoha4to"
