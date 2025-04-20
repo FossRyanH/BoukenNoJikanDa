@@ -22,8 +22,9 @@ public partial class PlayerStatemachine : StateMachine
     [Export] public float MouseSensitivity { get; private set; } = 0.00075f;
     [Export] public float MinCamBoundary { get; private set; } = -60f;
     [Export] public float MaxCamBoundary { get; private set; } = 10f;
-    public float TargetRunWeight = -1f;
+    public float TargetRunWeight = 0f;
     public AnimationNodeStateMachinePlayback StateMachinePlayback { get; set; }
+    public float MoveSpeed = 3.5f;
     #endregion
 
     public override void _Ready()

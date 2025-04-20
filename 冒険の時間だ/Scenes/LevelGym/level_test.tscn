@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://8dlkwb0cuyxa"]
+[gd_scene load_steps=9 format=3 uid="uid://8dlkwb0cuyxa"]
 
 [ext_resource type="PackedScene" uid="uid://b7ao8efm6118p" path="res://Scenes/Characters/player.tscn" id="1_4cmsk"]
 
@@ -34,8 +34,25 @@ fog_depth_begin = 20.0
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.1
 volumetric_fog_length = 2.0
+volumetric_fog_detail_spread = 0.65
 volumetric_fog_ambient_inject = 0.1
 volumetric_fog_sky_affect = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4cmsk"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_gch4u"]
+width = 128
+height = 128
+depth = 128
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_4cmsk")
+
+[sub_resource type="FogMaterial" id="FogMaterial_t3wry"]
+density = 0.05
+height_falloff = 1.0
+density_texture = SubResource("NoiseTexture3D_gch4u")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gch4u"]
 albedo_color = Color(0.389698, 0.215488, 0.115387, 1)
@@ -49,34 +66,45 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_t3wry")
 
+[node name="FogVolume" type="FogVolume" parent="."]
+shape = 4
+material = SubResource("FogMaterial_t3wry")
+
 [node name="LevelBox" type="Node3D" parent="."]
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="LevelBox"]
-
-[node name="Ground" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
+[node name="Ground" type="CSGBox3D" parent="LevelBox"]
 use_collision = true
 size = Vector3(20, 1, 20)
 material = SubResource("StandardMaterial3D_gch4u")
 
-[node name="Wall" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="LevelBox"]
 use_collision = true
-size = Vector3(20, 3, 1)
+
+[node name="Wall" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 10)
+use_collision = true
+size = Vector3(20, 5, 1)
 
 [node name="Wall2" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -10)
 use_collision = true
-size = Vector3(20, 3, 1)
+size = Vector3(20, 5, 1)
 
 [node name="Wall3" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 2, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 3, 0)
 use_collision = true
-size = Vector3(21, 3, 1)
+size = Vector3(21, 5, 1)
 
 [node name="Wall4" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 2, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 3, 0)
 use_collision = true
-size = Vector3(21, 3, 1)
+size = Vector3(21, 5, 1)
+
+[node name="Door" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.46262, 1.7483, 0)
+operation = 2
+size = Vector3(3, 3, 3)
 
 [node name="Player" parent="." instance=ExtResource("1_4cmsk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.488479, 0)
+MouseSensitivity = 0.005

@@ -39,11 +39,13 @@ public class PlayerBaseState : IState, IPlayerInputListener
     void RegisterListeners() 
     {
         Player.PlayerInputs.Movement += Move;
+        Player.PlayerInputs.PanCamera += PanCamera;
     }
 
     void UnregisterListeners() 
     {
         Player.PlayerInputs.Movement -= Move;
+        Player.PlayerInputs.PanCamera -= PanCamera;
     }
 
     void RotateCamera()
@@ -100,11 +102,11 @@ public class PlayerBaseState : IState, IPlayerInputListener
     {
         if (direction.IsZeroApprox())
         {
-            Player.TargetRunWeight = -1f;
+            Player.TargetRunWeight = 0f;
         }
         else
         {
-            Player.TargetRunWeight = 1f;
+            Player.TargetRunWeight = Player.InputDir.Length();
         }
     }
 
@@ -112,5 +114,11 @@ public class PlayerBaseState : IState, IPlayerInputListener
     {
         Player.InputDir = move;
         Player.InputDir.Normalized();
+    }
+
+    public void PanCamera(Vector2 move)
+    {
+        Player.LookDir = -move * (Player.MouseSensitivity * 5f);
+        Player.LookDir.Normalized();
     }
 }

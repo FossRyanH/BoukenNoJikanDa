@@ -18,7 +18,7 @@ public class PlayerLocomotionState : PlayerBaseState
     public override void PhysicsUpdate(double delta)
     {
         base.PhysicsUpdate(delta);
-        _velocity = _movement * 5f;
+        _velocity = _movement * Player.MoveSpeed * Player.InputDir.Length();
 
         Player.Velocity = _velocity;
 
