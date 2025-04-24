@@ -19,12 +19,14 @@ public partial class PlayerStatemachine : StateMachine
     #region Misc & Movement
     public Vector2 InputDir { get; set; }
     public Vector2 LookDir { get; set; }
-    [Export] public float MouseSensitivity { get; private set; } = 0.00075f;
+    [Export] public float MouseSensitivity { get; private set; } = 0.005f;
+    [Export] public float ControllerLookSensitivity { get; private set; } = 0.025f;
     [Export] public float MinCamBoundary { get; private set; } = -60f;
     [Export] public float MaxCamBoundary { get; private set; } = 10f;
     public float TargetRunWeight = 0f;
     public AnimationNodeStateMachinePlayback StateMachinePlayback { get; set; }
     public float MoveSpeed = 3.5f;
+    public float Gravity { get; set; } = 9.82f;
     #endregion
 
     public override void _Ready()
@@ -42,5 +44,4 @@ public partial class PlayerStatemachine : StateMachine
             LookDir = -eventMouseMotion.Relative * MouseSensitivity;
         }
     }
-
 }

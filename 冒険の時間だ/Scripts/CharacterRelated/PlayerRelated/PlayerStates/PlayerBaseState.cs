@@ -4,6 +4,7 @@ using Godot;
 public class PlayerBaseState : IState, IPlayerInputListener
 {
     protected PlayerStatemachine Player;
+    
     #region State Required Variables
     protected Vector3 _movement;
     protected string _blendTreeName;
@@ -29,6 +30,7 @@ public class PlayerBaseState : IState, IPlayerInputListener
     {
         RotateCamera();
         _movement = ProcessMovement();
+        ApplyGravity();
     }
 
     public virtual void Update(double delta) 
@@ -118,7 +120,21 @@ public class PlayerBaseState : IState, IPlayerInputListener
 
     public void PanCamera(Vector2 move)
     {
-        Player.LookDir = -move * (Player.MouseSensitivity * 5f);
+        Player.LookDir = -move * Player.ControllerLookSensitivity;
         Player.LookDir.Normalized();
+    }
+
+    void ApplyGravity()
+    {
+        if (!Player.IsOnFloor())
+        {
+            Vector3 velo = new Vector3(Player.Velocity.X, -Player.Gravity, Player.Velocity.Z);
+            Player.Velocity += velo;
+            Player.MoveAndSlide();
+        }
+        else
+        {
+            return;
+        }
     }
 }

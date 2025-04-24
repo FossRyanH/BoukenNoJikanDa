@@ -13,16 +13,9 @@ background_mode = 2
 sky = SubResource("Sky_gch4u")
 ambient_light_source = 3
 reflected_light_source = 2
-tonemap_mode = 4
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-sdfgi_enabled = true
 sdfgi_use_occlusion = true
-glow_enabled = true
 glow_normalized = true
 glow_bloom = 0.1
-fog_enabled = true
 fog_mode = 1
 fog_sun_scatter = 0.15
 fog_density = 1.0
@@ -32,25 +25,17 @@ fog_height = 128.0
 fog_height_density = 0.0003
 fog_depth_begin = 20.0
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1
-volumetric_fog_length = 2.0
-volumetric_fog_detail_spread = 0.65
-volumetric_fog_ambient_inject = 0.1
-volumetric_fog_sky_affect = 0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4cmsk"]
-noise_type = 3
+seed = 4
 
 [sub_resource type="NoiseTexture3D" id="NoiseTexture3D_gch4u"]
-width = 128
-height = 128
-depth = 128
 seamless = true
 seamless_blend_skirt = 1.0
 noise = SubResource("FastNoiseLite_4cmsk")
 
 [sub_resource type="FogMaterial" id="FogMaterial_t3wry"]
-density = 0.05
+density = 0.02
 height_falloff = 1.0
 density_texture = SubResource("NoiseTexture3D_gch4u")
 
@@ -66,7 +51,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_t3wry")
 
-[node name="FogVolume" type="FogVolume" parent="."]
+[node name="FogVolume" type="FogVolume" parent="WorldEnvironment"]
 shape = 4
 material = SubResource("FogMaterial_t3wry")
 
@@ -100,11 +85,14 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 3,
 use_collision = true
 size = Vector3(21, 5, 1)
 
+[node name="HallWay" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
+transform = Transform3D(0.997722, 0.0674581, 0, -0.0674581, 0.997722, 0, 0, 0, 1, -15.4972, 0.668005, -0.322977)
+size = Vector3(10.714, 0.325073, 4.64169)
+
 [node name="Door" type="CSGBox3D" parent="LevelBox/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.46262, 1.7483, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.40964, 2.00179, -0.441591)
 operation = 2
-size = Vector3(3, 3, 3)
+size = Vector3(2.89404, 3, 1.5365)
 
 [node name="Player" parent="." instance=ExtResource("1_4cmsk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.488479, 0)
-MouseSensitivity = 0.005
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2.2991, 0)
